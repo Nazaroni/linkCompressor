@@ -1,0 +1,2 @@
+# linkCompressor
+Generate shorter links
