@@ -1,0 +1,28 @@
+{
+  "name": "linkcompressor",
+  "version": "1.0.0",
+  "description": "make link short",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nazaroni/linkCompressor.git"
+  },
+  "author": "Nazar Malyy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nazaroni/linkCompressor/issues"
+  },
+  "homepage": "https://github.com/Nazaroni/linkCompressor#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
