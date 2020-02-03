@@ -1,9 +1,9 @@
-import React from 'react';
-import { useRoutes } from './routes';
+import React      from 'react';
+import useRoutes  from './routes';
 import { BrowserRouter } from 'react-router-dom'
 import 'materialize-css';
 
-import './App.css'
+import './App.css';
 
 function App() {
    const routes = useRoutes( false );

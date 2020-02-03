@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { AuthPage }   from './components/AuthPage';
-import { CreatePage } from './components/CreatePage';
-import { DetailPage } from './components/DetailPage';
-import { LinksPage }  from './components/LinksPage';
+import AuthPage       from './components/AuthPage/AuthPage';
+import { CreatePage } from './components/CreatePage/CreatePage';
+import { DetailPage } from './components/DetailPage/DetailPage';
+import { LinksPage }  from './components/LinksPage/LinksPage';
 
-export const useRoutes = ( isAuthnticated ) => {
+const useRoutes = ( isAuthnticated ) => {
   if ( isAuthnticated ) {
     // when user is autenticated
     return (
@@ -21,7 +21,7 @@ export const useRoutes = ( isAuthnticated ) => {
         </Route>
         <Redirect to="/create" />
       </Switch>
-    )
+    );
   }
 
   // when user isn't autenticated
@@ -32,5 +32,7 @@ export const useRoutes = ( isAuthnticated ) => {
       </Route>
       <Redirect to="/" />
     </Switch>
-  )
-}
+  );
+};
+
+export default useRoutes;
