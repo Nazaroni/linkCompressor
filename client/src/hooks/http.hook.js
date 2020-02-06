@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export const useHttp = () => {
+const useHttp = () => {
   const [ loading, setLoading ] = useState( false );
   const [ error, setError ]     = useState( null );
 
@@ -10,7 +10,7 @@ export const useHttp = () => {
       try {
         if ( body ) {
           body = JSON.stringify( body );
-          
+
           // tell that we send JSON in body
           headers[ 'Content-Type' ] = 'application/json';
         };
@@ -25,17 +25,21 @@ export const useHttp = () => {
         setLoading( false );  // stop loading message
 
         return data;
-      } 
-      catch ( error ) {
+      }
+      catch ( errorBody ) {
         setLoading( false );
-        setError( error.message );
-        throw error;
+        setError( errorBody.message );
+        throw errorBody;
       }
     },
     [],
-  )
+  );
 
-  const clearError = () => setError( null );
+  const clearError = () => { setError( null ); };
 
-  return { loading, request, error, clearError };
-}
+  return {
+    loading, request, error, clearError,
+  };
+};
+
+export default useHttp;

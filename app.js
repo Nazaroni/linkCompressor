@@ -2,6 +2,7 @@ const express       = require( 'express' );
 const config        = require( 'config' );
 const mongoose      = require( 'mongoose' );
 const myAuthRoutes  = require( './routes/auth.routes' );
+const myLinkRouter  = require( './routes/link.routes' );
 
 const app   = express();
 const PORT  = config.get( 'port' ) || 5000;
@@ -9,6 +10,7 @@ const PORT  = config.get( 'port' ) || 5000;
 // middlewares
 app.use( express.json( { extended: true } ) );
 app.use( '/api/auth', myAuthRoutes );
+app.use( '/api/link', myLinkRouter );
 
 /**
  * start the server with MongoDB

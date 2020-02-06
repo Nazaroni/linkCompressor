@@ -31,7 +31,10 @@ module.exports = {
         "brace-style": "off",
         "arrow-body-style": ["error", "always"],
         "max-len": ["error", { "code": 120 }],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "array-bracket-spacing": "off",
+        "computed-property-spacing": "off",
+        "jsx-a11y/label-has-associated-control": "off"
     },
     "parser": "babel-eslint",
 };
