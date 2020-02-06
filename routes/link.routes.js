@@ -1,13 +1,35 @@
 const { Router }  = require( 'express' );
+const config      = require( 'config' );
+const shortID     = require( 'shortid' );
 const Link        = require( '../models/Link' );
 const authMidWR   = require( '../middleware/auth.middleware' );
 
 const router      = Router();
 
 // to generate a new short link by POST
-router.post( '/generate', async ( req, res ) => {
+router.post( '/generate', authMidWR, async ( req, res ) => {
   try {
-    return 0;
+    const baseURL = config.get( 'baseURL' );
+    const { from } = req.body;
+
+    const uniqueCode = shortID.generate();
+
+    // check if we already have such short link
+    const existingLink = await Link.findOne( { from } );
+
+    if ( existingLink ) {
+      return res.status( 200 ).json( { link: existingLink } );
+    }
+
+    const to = `${ baseURL }/t/${ uniqueCode }`;
+
+    const newLink = new Link({
+      uniqueCode, to, from, owner: req.user.userID,
+    });
+
+    await newLink.save();
+
+    return res.status( 201 ).json({ newLink });
   }
   catch ( error ) {
     return res.status( 500 ).json(
@@ -31,7 +53,7 @@ router.get( '/', authMidWR, async ( req, res ) => {
 });
 
 // get link by ID
-router.get( '/:id', async ( req, res ) => {
+router.get( '/:id', authMidWR, async ( req, res ) => {
   try {
     const link = await Link.findById( req.param.id );
     return res.json( link );
