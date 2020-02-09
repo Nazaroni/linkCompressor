@@ -31,15 +31,15 @@ router.post( '/generate', authMidWR, async ( req, res ) => {
     console.log( to );
 
     const link = new Link({
-      code: code, to, from, owner: req.user.userID,
+      code, to, from, owner: req.user.userID,
     });
 
     await link.save();
 
-    res.status( 201 ).json({ link });
+    return res.status( 201 ).json({ link });
   }
   catch ( error ) {
-    res.status( 500 ).json(
+    return res.status( 500 ).json(
       { message: 'link.routes.js -> An error occurred while "generate"... please try again!' },
     );
   }

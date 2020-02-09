@@ -16,7 +16,7 @@ module.exports = ( req, res, next ) => {
     // if token exist we need to decode them
     const decoded = jwt.verify( token, config.get( 'jwtSecret' ) );
     req.user = decoded;
-    next();
+    return next();
   }
   catch ( error ) {
     console.log( 'auth.middleware.js -> !token error:' );

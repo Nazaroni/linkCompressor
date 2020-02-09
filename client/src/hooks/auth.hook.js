@@ -4,8 +4,8 @@ const storageName = 'userData';
 
 
 const useAuth = () => {
-  const [ ready, setReady ]   = useState( false );
   const [ token, setToken ]   = useState( null );
+  const [ ready, setReady ]   = useState( false );
   const [ userID, setUserID]  = useState( null );
 
   // we use callback for 'login" to be able use the as useEffect dependecty

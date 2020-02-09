@@ -11,8 +11,8 @@ const useHttp = () => {
         if ( body ) {
           // eslint-disable-next-line no-param-reassign
           body = JSON.stringify( body );
-          console.log( 'body is:' );
-          console.log( body );
+          // console.log( 'body is:' );
+          // console.log( body );
 
           // tell that we send JSON in body
           // eslint-disable-next-line no-param-reassign
