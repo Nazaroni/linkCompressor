@@ -1,3 +1,7 @@
+/**
+ * this rout is responsible for short link generation for our app
+*/
+
 const { Router }  = require( 'express' );
 const config      = require( 'config' );
 const shortID     = require( 'shortid' );
@@ -10,29 +14,32 @@ const router      = Router();
 router.post( '/generate', authMidWR, async ( req, res ) => {
   try {
     const baseURL = config.get( 'baseURL' );
+    console.log( baseURL );
     const { from } = req.body;
 
-    const uniqueCode = shortID.generate();
+    const code = shortID.generate();
 
     // check if we already have such short link
     const existingLink = await Link.findOne( { from } );
 
     if ( existingLink ) {
-      return res.status( 200 ).json( { link: existingLink } );
+      return res.json( { link: existingLink } );
     }
 
-    const to = `${ baseURL }/t/${ uniqueCode }`;
+    const to = `${baseURL}/t/${code}`;
+    console.log( 'link.routes.js -> POST -> to: ' );
+    console.log( to );
 
-    const newLink = new Link({
-      uniqueCode, to, from, owner: req.user.userID,
+    const link = new Link({
+      code: code, to, from, owner: req.user.userID,
     });
 
-    await newLink.save();
+    await link.save();
 
-    return res.status( 201 ).json({ newLink });
+    res.status( 201 ).json({ link });
   }
   catch ( error ) {
-    return res.status( 500 ).json(
+    res.status( 500 ).json(
       { message: 'link.routes.js -> An error occurred while "generate"... please try again!' },
     );
   }
@@ -55,7 +62,7 @@ router.get( '/', authMidWR, async ( req, res ) => {
 // get link by ID
 router.get( '/:id', authMidWR, async ( req, res ) => {
   try {
-    const link = await Link.findById( req.param.id );
+    const link = await Link.findById( req.params.id );
     return res.json( link );
   }
   catch ( error ) {

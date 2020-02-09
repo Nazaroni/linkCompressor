@@ -9,33 +9,42 @@ const useHttp = () => {
       setLoading( true );     // start loading message
       try {
         if ( body ) {
+          // eslint-disable-next-line no-param-reassign
           body = JSON.stringify( body );
+          console.log( 'body is:' );
+          console.log( body );
 
           // tell that we send JSON in body
-          headers[ 'Content-Type' ] = 'application/json';
-        };
+          // eslint-disable-next-line no-param-reassign
+          headers['Content-Type'] = 'application/json';
+        }
 
-        const response  = await fetch( url, { method, body, headers });
-        const data      = await response.json();
+        const response = await fetch(url, { method, body, headers });
+        const data = await response.json();
 
         if ( !response.ok ) {
           throw new Error( data.message || 'http.hooks.js -> useHttp response error' );
+        }
+        else {
+          console.log( 'response is ok!' );
         }
 
         setLoading( false );  // stop loading message
 
         return data;
       }
-      catch ( errorBody ) {
+      catch ( e ) {
+        console.log( 'http.hook.js -> errorBody: ');
+        console.log( e.message );
         setLoading( false );
-        setError( errorBody.message );
-        throw errorBody;
+        setError( e.message );
+        throw e;
       }
     },
     [],
   );
 
-  const clearError = () => { setError( null ); };
+  const clearError = useCallback( () => { return setError( null ); }, [] );
 
   return {
     loading, request, error, clearError,

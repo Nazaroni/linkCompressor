@@ -16,16 +16,14 @@ const AuthPage = () => {
   });
 
   useEffect( () => {
-    return () => {
-      message( error );
-      clearError();
-    };
+    console.log( 'AuthPage.js -> AuthPage -> useEffect Error: ');
+    console.log( error );
+    message( error );
+    clearError();
   }, [ error, message, clearError ] );
 
   useEffect(() => {
-    return () => {
-      window.M.updateTextFields();
-    };
+    window.M.updateTextFields();
   }, []);
 
   const changeHandler = ( event ) => {
@@ -38,7 +36,7 @@ const AuthPage = () => {
       message( data.message );
     }
     catch ( errorReg ) {
-      // console.log( errorReg );
+      console.log( errorReg );
     }
   };
 
@@ -56,7 +54,7 @@ const AuthPage = () => {
     <div className="row">
       <div className="col s6 offset-s2">
         <h2>Make link shorter</h2>
-        <div className="card blue-grey darken-1">
+        <div className="card green darken-2">
           <div className="card-content white-text">
             <span className="card-title">Authorisation</span>
             <div>
@@ -68,6 +66,7 @@ const AuthPage = () => {
                   id="email"
                   type="text"
                   className="yellow-input"
+                  value={form.email}
                   onChange={changeHandler}
                 />
 
@@ -81,6 +80,7 @@ const AuthPage = () => {
                   id="password"
                   type="password"
                   className="yellow-input"
+                  value={form.password}
                   onChange={changeHandler}
                 />
 

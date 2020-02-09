@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="nav-wrapper blue darken-4">
+      <div className="nav-wrapper green darken-2">
         <span className="brand-logo">Links Compressor</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><NavLink to="/create">Create</NavLink></li>

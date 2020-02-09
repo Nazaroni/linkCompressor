@@ -1,13 +1,14 @@
 const { Schema, model, Types }   = require( 'mongoose' );
 
 /**
- * Our user has name, password and own list of links array
+ * Our link has owner, click couter, original path, short path,
+ * date when short link was created and code (for interacion wiht app)
  */
 const schema = new Schema({
   from: { type: String, required: true },
   to: { type: String, required: true, unique: true },
   code: { type: String, required: true, unique: true },
-  date: { tyep: Date, default: Date.now },
+  date: { type: Date, default: Date.now },
   clicks: { type: Number, default: 0 },
   owner: { type: Types.ObjectId, ref: 'User' },
 });

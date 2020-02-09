@@ -7,7 +7,7 @@ module.exports = ( req, res, next ) => {
   }
 
   try {
-    const token = req.headers.authorozation.split( ' ' )[1]; // "Bearer TOKEN"
+    const token = req.headers.authorization.split(' ')[1]; // "Bearer TOKEN"
 
     if ( !token ) {
       return res.status( 401 ).json( { message: 'Not authorised' } );
@@ -16,9 +16,11 @@ module.exports = ( req, res, next ) => {
     // if token exist we need to decode them
     const decoded = jwt.verify( token, config.get( 'jwtSecret' ) );
     req.user = decoded;
-    return next();
+    next();
   }
-  catch (error) {
+  catch ( error ) {
+    console.log( 'auth.middleware.js -> !token error:' );
+    console.log( error );
     return res.status( 401 ).json( { message: 'Not authorised' } );
   }
 };

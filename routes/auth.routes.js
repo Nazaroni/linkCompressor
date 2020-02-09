@@ -1,8 +1,8 @@
-const { check, validationResult } = require( 'express-validator' );
 const { Router }  = require( 'express' );
 const bcryptjs    = require( 'bcryptjs' );
-const jwt         = require( 'jsonwebtoken' );
 const config      = require( 'config' );
+const jwt         = require( 'jsonwebtoken' );
+const { check, validationResult } = require( 'express-validator' );
 const User        = require( '../models/User' );
 
 const router      = Router();
@@ -41,8 +41,8 @@ router.post(
       const hashedPassword  = await bcryptjs.hash( password, 18 );
       const user            = new User( { email, password: hashedPassword } );
 
-      res.status( 201 ).json( { message: 'User was created' } );
-      return await user.save();
+      await user.save();
+      return res.status( 201 ).json( { message: 'User was created' } );
     }
     catch ( error ) {
       res.status( 500 ).json( { message: 'auth.routes.js -> An error occurred while register... please try again!' } );
@@ -66,7 +66,7 @@ router.post(
 
       // if error not empty sent back to from end errors
       if ( !errors.isEmpty() ) {
-        return res.status( 400 ).json( {
+        return res.status( 400 ).json({
           errors: errors.array(),
           message: 'Login data failure',
         });
