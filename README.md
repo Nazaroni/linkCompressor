@@ -1,4 +1,4 @@
 # linkCompressor
 Generate shorter links
 
-## Location
+## Location of the app
