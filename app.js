@@ -35,7 +35,7 @@ const start = async () => {
       useCreateIndex: true,
     });
 
-    app.listen( PORT, () => { console.log( `App has been started on port${ PORT }...` ) })
+    app.listen( PORT, () => { console.log( `App has been started on port ${ PORT }...` ) })
   }
   catch ( errStart ) {
     console.log( 'App.js -> start -> Server error...', errStart.message )
