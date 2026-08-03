@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthPage     from './components/AuthPage/AuthPage';
 import CreatePage   from './components/CreatePage/CreatePage';
 import DetailPage   from './components/DetailPage/DetailPage';
@@ -9,29 +9,21 @@ const useRoutes = ( isAuthnticated ) => {
   if ( isAuthnticated ) {
     // when user is autenticated
     return (
-      <Switch>
-        <Route path="/links" exact>
-          <LinksPage />
-        </Route>
-        <Route path="/create" exact>
-          <CreatePage />
-        </Route>
-        <Route path="/detail/:id">
-          <DetailPage />
-        </Route>
-        <Redirect to="/create" />
-      </Switch>
+      <Routes>
+        <Route path="/links" element={<LinksPage />} />
+        <Route path="/create" element={<CreatePage />} />
+        <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="*" element={<Navigate to="/create" replace />} />
+      </Routes>
     );
   }
 
   // when user isn't autenticated
   return (
-    <Switch>
-      <Route path="/" exact>
-        <AuthPage />
-      </Route>
-      <Redirect to="/" />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<AuthPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 

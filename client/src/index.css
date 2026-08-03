@@ -1,4 +1,4 @@
-@import "~materialize-css/dist/css/materialize.min.css";
+@import "materialize-css/dist/css/materialize.min.css";
 
 input.yellow-input {
   border-bottom: 1px solid #fff!important;
