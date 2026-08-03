@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext }  from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/http.hook';
 import AuthContext from '../../context/AuthContext';
 import './CreatePage.css';
 
 const CreatePage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const auth              = useContext( AuthContext );
   const { request }       = useHttp();
   const [ link, setLink ] = useState('');
@@ -16,18 +16,24 @@ const CreatePage = () => {
 
   const pressHandler = async ( event ) => {
     if ( event.key === 'Enter' ) {
-      try {
-        console.log( 'Enter pressed' );
-        const data = await request( '/api/link/generate', 'POST', { from: link }, {
-          Authorization: `Bearer ${ auth.token }`,
-        });
-        console.log( 'pressHandler data is: \n', data );
-        // eslint-disable-next-line no-underscore-dangle
-        history.push( `/detail/${ data.link._id}`);
-      }
-      catch ( e ) {
-        console.log( e );
-      }
+      event.preventDefault();
+      submitLink();
+    }
+  };
+
+  const submitLink = async () => {
+    if ( !link ) {
+      return;
+    }
+    try {
+      const data = await request( '/api/link/generate', 'POST', { from: link }, {
+        Authorization: `Bearer ${ auth.token }`,
+      });
+      // eslint-disable-next-line no-underscore-dangle
+      navigate( `/detail/${ data.link._id}`);
+    }
+    catch ( e ) {
+      console.log( e );
     }
   };
 
@@ -41,10 +47,17 @@ const CreatePage = () => {
             type="text"
             value={link}
             onChange={( e ) => { return setLink( e.target.value ); }}
-            onKeyPress={pressHandler}
+            onKeyDown={pressHandler}
           />
           <label htmlFor="link">Please type a link</label>
         </div>
+        <button
+          type="button"
+          className="btn yellow darken-4"
+          onClick={submitLink}
+        >
+          Create
+        </button>
       </div>
     </div>
   );
