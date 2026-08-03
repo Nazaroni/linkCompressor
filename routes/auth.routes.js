@@ -38,7 +38,7 @@ router.post(
       }
 
       // then we can register a new user with protected password
-      const hashedPassword  = await bcryptjs.hash( password, 18 );
+      const hashedPassword  = await bcryptjs.hash( password, 10 );
       const user            = new User( { email, password: hashedPassword } );
 
       await user.save();
