@@ -76,10 +76,15 @@ npm run client:build
 npm start
 ```
 
+## Tech stack
+- Backend: Node.js, Express 5, Mongoose 9, JWT auth, bcryptjs.
+- Frontend: React 19, react-router-dom 7, built with Vite (migrated from
+  Create React App).
+
 ## Notes
-- On Node 17+, the React client's build tooling (`react-scripts` 3.3.1 /
-  webpack 4) is incompatible with OpenSSL 3. This is already handled via
-  `NODE_OPTIONS=--openssl-legacy-provider` in `client/package.json`'s
-  `start` script, so no extra action is needed.
+- The client uses Vite instead of `react-scripts`/webpack, so there are no
+  OpenSSL legacy-provider issues on modern Node versions.
+- If port 3000 is already in use, Vite automatically falls back to the next
+  free port (3001, 3002, ...) and prints the actual URL in the console.
 - `config/default.json` and `client/node_modules` are intentionally not
   committed to git; follow the setup steps above after cloning.
