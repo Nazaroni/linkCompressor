@@ -19,7 +19,7 @@ app.use( '/t', myRedirect )
 if ( process.env.NODE_ENV === 'production' ) {
   app.use( '/', express.static( path.join( __dirname, 'client', 'build') ) )
 
-  app.get( '*', ( req, res ) => {
+  app.get( '/*splat', ( req, res ) => {
     res.sendFile( path.resolve( __dirname, 'client', 'build', 'index.html') )
   })
 }
@@ -29,11 +29,7 @@ if ( process.env.NODE_ENV === 'production' ) {
  */
 const start = async () => {
   try {
-    await mongoose.connect( config.get( 'mongoURL' ), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
+    await mongoose.connect( config.get( 'mongoURL' ) );
 
     app.listen( PORT, () => { console.log( `App has been started on port ${ PORT }...` ) })
   }

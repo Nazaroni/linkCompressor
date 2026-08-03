@@ -5,8 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:react/recommended',
-    'airbnb',
+    'eslint:recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -16,19 +15,11 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
   rules: {
-    "no-multi-spaces": "off",
-    "no-console": "off",
-    "template-curly-spacing": "off",
-    "space-in-parens": "off",
-    "brace-style": "off",
-    "arrow-body-style": ["error", "always"],
-    "max-len": ["error", { "code": 120 }]
+    'no-console': 'off',
+    'no-unused-vars': 'warn',
   },
 };
